@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Database\Seeder;
+use Database\Factories\Helpers\FactoryHelper;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PostSeeder extends Seeder
 {
@@ -16,7 +20,16 @@ class PostSeeder extends Seeder
     {
         $this->disableForeignKey();
         $this->truncate('posts');
-        \App\Models\Post::factory(10)->create();
+       $posts= Post::factory(10)
+        //
+        ->create();
+
+
+        //each post is Assighend To A Random User Id
+        $posts->each(function (Post $post){
+$post->users()->sync([FactoryHelper::getRandomModelId(User::class)]);
+
+        });
         $this->enableForeignKey();
 
 

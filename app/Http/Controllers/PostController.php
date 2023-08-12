@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -13,15 +15,25 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        // $posts=Post::query()->where('id','!=',9)->get();
+        $posts=Post::query()->find(11);
+        return new JsonResponse(['data'=>$posts]);
+
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePostRequest $request)
+    public function store(Request $request)
     {
-        //
+        $created=Post::query()->create([
+            'title'=> $request->title,
+            'body' =>$request->body,
+        ]);
+        return new JsonResponse([
+            'data' => $created
+        ]);
     }
 
     /**
