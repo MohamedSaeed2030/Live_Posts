@@ -16,7 +16,7 @@ class PostController extends Controller
     public function index()
     {
         // $posts=Post::query()->where('id','!=',9)->get();
-        $posts=Post::query()->find(11);
+        $posts=Post::all();
         return new JsonResponse(['data'=>$posts]);
 
 
@@ -39,24 +39,55 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $id)
     {
-        //
+
+        $post=Post::query()->find($id);
+
+       return new JsonResponse([
+       'data' => $post
+       ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+
+        $post=Post::find($id);
+
+        $updated = $post->update([
+
+            'title' => $request->title ,
+            'body' =>$request->body        ]);
+
+            return new JsonResponse([
+                'isUpdated'=>$updated,
+                'data' =>$post
+            ]);
+
+
+
+
+
+
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
     {
-        //
+
+       dump($post);
+//         var_dump($id);
+// //         $post = Post::find($id);
+// //         $post->delete();
+// // $post::save();
+// //         return new JsonResponse (['data' => $post]);
     }
 }

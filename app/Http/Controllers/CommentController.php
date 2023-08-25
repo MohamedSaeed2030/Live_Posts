@@ -25,7 +25,13 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        $created=Comment::query()->create([
+            'title'=> $request->title,
+            'body' =>$request->body,
+        ]);
+        return new JsonResponse([
+            'data' => $created
+        ]);
     }
 
     /**

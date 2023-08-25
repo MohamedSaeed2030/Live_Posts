@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    protected $hidden =[
+'title'
+    ];
     protected $casts =[
 
         'body' => 'array'

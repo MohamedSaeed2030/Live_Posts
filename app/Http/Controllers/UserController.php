@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -13,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-       $users= User::query()->get();
+       $users= User::groupBy('id')->select('id', DB::raw('count(*) as count'))->get();
         return new JsonResponse([
             'data'=>$users
         ]);

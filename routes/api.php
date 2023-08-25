@@ -38,7 +38,7 @@ Route::prefix('v1')->group(function(){
     Route::get('/post',[PostController::class,'index']);
     Route::post('/post',[PostController::class,'store']);
     Route::get('/post/{id}',[PostController::class,'show']);
-    Route::patch('/post/{id}',[PostController::class,'update']);
+    Route::put('/post/{id}',[PostController::class,'update']);
     Route::delete('/post/{id}',[PostController::class,'destroy']);
 
 
